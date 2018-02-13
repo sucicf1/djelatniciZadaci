@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="djelatniciZadaciModelStoreContainer" CdmEntityContainer="djelatniciZadaciEntities">
+    <EntitySetMapping Name="Djelatnici">
+      <EntityTypeMapping TypeName="djelatniciZadaciModel.Djelatnici">
+        <MappingFragment StoreEntitySet="Djelatnici">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ime" ColumnName="ime" />
+          <ScalarProperty Name="prezime" ColumnName="prezime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RadniZadaci">
+      <EntityTypeMapping TypeName="djelatniciZadaciModel.RadniZadaci">
+        <MappingFragment StoreEntitySet="RadniZadaci">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="naslov" ColumnName="naslov" />
+          <ScalarProperty Name="opis" ColumnName="opis" />
+          <ScalarProperty Name="djelatnikId" ColumnName="djelatnikId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

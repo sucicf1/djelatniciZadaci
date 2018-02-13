@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="djelatniciZadaciModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Djelatnici">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="prezime" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RadniZadaci">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="naslov" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="opis" Type="varchar(max)" />
+          <Property Name="djelatnikId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_RadniZadaci_Djelatnici">
+          <End Role="Djelatnici" Type="Self.Djelatnici" Multiplicity="1" />
+          <End Role="RadniZadaci" Type="Self.RadniZadaci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Djelatnici">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RadniZadaci">
+              <PropertyRef Name="djelatnikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="djelatniciZadaciModelStoreContainer">
+          <EntitySet Name="Djelatnici" EntityType="Self.Djelatnici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RadniZadaci" EntityType="Self.RadniZadaci" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_RadniZadaci_Djelatnici" Association="Self.FK_RadniZadaci_Djelatnici">
+            <End Role="Djelatnici" EntitySet="Djelatnici" />
+            <End Role="RadniZadaci" EntitySet="RadniZadaci" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="djelatniciZadaciModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Djelatnici">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prezime" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="RadniZadaci" Relationship="Self.FK_RadniZadaci_Djelatnici" FromRole="Djelatnici" ToRole="RadniZadaci" />
+        </EntityType>
+        <EntityType Name="RadniZadaci">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naslov" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="opis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="djelatnikId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Djelatnici" Relationship="Self.FK_RadniZadaci_Djelatnici" FromRole="RadniZadaci" ToRole="Djelatnici" />
+        </EntityType>
+        <Association Name="FK_RadniZadaci_Djelatnici">
+          <End Role="Djelatnici" Type="Self.Djelatnici" Multiplicity="1" />
+          <End Role="RadniZadaci" Type="Self.RadniZadaci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Djelatnici">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RadniZadaci">
+              <PropertyRef Name="djelatnikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="djelatniciZadaciEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Djelatnici" EntityType="Self.Djelatnici" />
+          <EntitySet Name="RadniZadaci" EntityType="Self.RadniZadaci" />
+          <AssociationSet Name="FK_RadniZadaci_Djelatnici" Association="Self.FK_RadniZadaci_Djelatnici">
+            <End Role="Djelatnici" EntitySet="Djelatnici" />
+            <End Role="RadniZadaci" EntitySet="RadniZadaci" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="djelatniciZadaciModelStoreContainer" CdmEntityContainer="djelatniciZadaciEntities">
+          <EntitySetMapping Name="Djelatnici">
+            <EntityTypeMapping TypeName="djelatniciZadaciModel.Djelatnici">
+              <MappingFragment StoreEntitySet="Djelatnici">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RadniZadaci">
+            <EntityTypeMapping TypeName="djelatniciZadaciModel.RadniZadaci">
+              <MappingFragment StoreEntitySet="RadniZadaci">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="naslov" ColumnName="naslov" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="djelatnikId" ColumnName="djelatnikId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

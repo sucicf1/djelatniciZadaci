@@ -1,0 +1,40 @@
+﻿@model djelatniciZadaci.Models.Djelatnici
+
+@{
+    ViewBag.Title = "Djelatnici - brisanje";
+}
+
+<h2>Izbriši</h2>
+<p class="error">@ViewBag.ErrorMessage</p>
+<h3>Jeste li sigurni da želite izbrisati djelatnika?</h3>
+<div>
+    <h4>Djelatnici</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prezime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prezime)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Izbriši" class="btn btn-default" /> |
+            @Html.ActionLink("Povratak na popis", "Index")
+        </div>
+    }
+</div>

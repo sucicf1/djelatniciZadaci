@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="djelatniciZadaciModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Djelatnici">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ime" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="prezime" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RadniZadaci">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="naslov" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="opis" Type="varchar(max)" />
+    <Property Name="djelatnikId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_RadniZadaci_Djelatnici">
+    <End Role="Djelatnici" Type="Self.Djelatnici" Multiplicity="1" />
+    <End Role="RadniZadaci" Type="Self.RadniZadaci" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Djelatnici">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RadniZadaci">
+        <PropertyRef Name="djelatnikId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="djelatniciZadaciModelStoreContainer">
+    <EntitySet Name="Djelatnici" EntityType="Self.Djelatnici" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RadniZadaci" EntityType="Self.RadniZadaci" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_RadniZadaci_Djelatnici" Association="Self.FK_RadniZadaci_Djelatnici">
+      <End Role="Djelatnici" EntitySet="Djelatnici" />
+      <End Role="RadniZadaci" EntitySet="RadniZadaci" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
